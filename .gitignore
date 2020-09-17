@@ -9,3 +9,4 @@
 MYMETA.json
 MYMETA.yml
 /.build/
+/MIME-Base64-*

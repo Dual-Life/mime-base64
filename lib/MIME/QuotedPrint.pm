@@ -6,7 +6,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(encode_qp decode_qp);
 
-our $VERSION = "3.13";
+our $VERSION = "3.16";
 
 use MIME::Base64;  # will load XS version of {en,de}code_qp()
 
