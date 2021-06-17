@@ -301,11 +301,7 @@ decoded_base64_length(sv)
 
 MODULE = MIME::Base64		PACKAGE = MIME::QuotedPrint
 
-#ifdef EBCDIC
-#define qp_isplain(c) ((c) == '\t' || ((!isprint(c) && (c) != '=')))
-#else
-#define qp_isplain(c) ((c) == '\t' || (((c) >= ' ' && (c) <= '~') && (c) != '='))
-#endif
+#define qp_isplain(c) ((c) == '\t' || (isPRINT(c) && (c) != '='))
 
 SV*
 encode_qp(sv,...)
