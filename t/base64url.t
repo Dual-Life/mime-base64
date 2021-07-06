@@ -2,11 +2,12 @@
 
 use strict;
 use warnings;
-use Test qw(plan ok);
+use Test qw(plan ok skip);
 
 use MIME::Base64 qw(encode_base64url decode_base64url);
 
 my @tests;
+
 while (<DATA>) {
     next if /^#/;
     chomp;
@@ -18,8 +19,8 @@ plan tests => 2 * @tests;
 for (@tests) {
     my($name, $input, $output) = @$_;
     print "# $name\n";
-    ok(decode_base64url($input), $output);
-    ok(encode_base64url($output), $input);
+    skip(ord("A") != 65 ? "ASCII-centric test" : 0, decode_base64url($input), $output);
+    skip(ord("A") != 65 ? "ASCII-centric test" : 0, encode_base64url($output), $input);
 }
 
 __END__
