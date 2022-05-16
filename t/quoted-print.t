@@ -1,13 +1,6 @@
 use strict;
 use warnings;
 
-BEGIN {
-        if ($ENV{PERL_CORE}) {
-                chdir 't' if -d 't';
-                @INC = '../lib';
-        }
-}
-
 # Use our own is() function to not have any dependencies on other modules;
 # this one is simplified from the one in core perl t/test.pl
 my $testno = 0;

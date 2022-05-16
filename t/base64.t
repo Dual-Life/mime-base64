@@ -1,13 +1,6 @@
 use strict;
 use warnings;
 
-BEGIN {
-    if ($ENV{'PERL_CORE'}){
-        chdir 't' if -d 't';
-        @INC = '../lib';
-    }
-}
-
 use MIME::Base64;
 
 print "1..283\n";
