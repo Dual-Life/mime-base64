@@ -57,18 +57,18 @@ trustees played.  There would be a great increase in broken arms, legs, and=
 y. -- H. L. Mencken=\n"],
 
    # Don't break a line that's near but not over 76 chars.
-   ["$x70!23"		=> "$x70!23=\n"],
-   ["$x70!234"		=> "$x70!234=\n"],
-   ["$x70!2345"		=> "$x70!2345=\n"],
-   ["$x70!23456"	=> "$x70!2345=\n6=\n"],
-   ["$x70!234567"	=> "$x70!2345=\n67=\n"],
-   ["$x70!23456="	=> "$x70!2345=\n6=3D=\n"],
-   ["$x70!23\n"		=> "$x70!23\n"],
-   ["$x70!234\n"	=> "$x70!234\n"],
-   ["$x70!2345\n"	=> "$x70!2345\n"],
-   ["$x70!23456\n"	=> "$x70!23456\n"],
-   ["$x70!234567\n"	=> "$x70!2345=\n67\n"],
-   ["$x70!23456=\n"	=> "$x70!2345=\n6=3D\n"],
+   ["$x70!23"       => "$x70!23=\n"],
+   ["$x70!234"      => "$x70!234=\n"],
+   ["$x70!2345"     => "$x70!2345=\n"],
+   ["$x70!23456"    => "$x70!2345=\n6=\n"],
+   ["$x70!234567"   => "$x70!2345=\n67=\n"],
+   ["$x70!23456="   => "$x70!2345=\n6=3D=\n"],
+   ["$x70!23\n"     => "$x70!23\n"],
+   ["$x70!234\n"    => "$x70!234\n"],
+   ["$x70!2345\n"   => "$x70!2345\n"],
+   ["$x70!23456\n"  => "$x70!23456\n"],
+   ["$x70!234567\n" => "$x70!2345=\n67\n"],
+   ["$x70!23456=\n" => "$x70!2345=\n6=3D\n"],
 
    # Not allowed to break =XX escapes using soft line break
    ["$x70===xxxxx"  => "$x70=3D=\n=3D=3Dxxxxx=\n"],
@@ -147,18 +147,18 @@ trustees played.  There would be a great increase in broken arms, legs, and=
 y. -- H. L. Mencken=\n"],
 
    # Don't break a line that's near but not over 76 chars.
-   ["$x70!23"		=> "$x70!23=\n"],
-   ["$x70!234"		=> "$x70!234=\n"],
-   ["$x70!2345"		=> "$x70!2345=\n"],
-   ["$x70!23456"	=> "$x70!2345=\n6=\n"],
-   ["$x70!234567"	=> "$x70!2345=\n67=\n"],
-   ["$x70!23456="	=> "$x70!2345=\n6=7E=\n"],
-   ["$x70!23\n"		=> "$x70!23\n"],
-   ["$x70!234\n"	=> "$x70!234\n"],
-   ["$x70!2345\n"	=> "$x70!2345\n"],
-   ["$x70!23456\n"	=> "$x70!23456\n"],
-   ["$x70!234567\n"	=> "$x70!2345=\n67\n"],
-   ["$x70!23456=\n"	=> "$x70!2345=\n6=7E\n"],
+   ["$x70!23"       => "$x70!23=\n"],
+   ["$x70!234"      => "$x70!234=\n"],
+   ["$x70!2345"     => "$x70!2345=\n"],
+   ["$x70!23456"    => "$x70!2345=\n6=\n"],
+   ["$x70!234567"   => "$x70!2345=\n67=\n"],
+   ["$x70!23456="   => "$x70!2345=\n6=7E=\n"],
+   ["$x70!23\n"     => "$x70!23\n"],
+   ["$x70!234\n"    => "$x70!234\n"],
+   ["$x70!2345\n"   => "$x70!2345\n"],
+   ["$x70!23456\n"  => "$x70!23456\n"],
+   ["$x70!234567\n" => "$x70!2345=\n67\n"],
+   ["$x70!23456=\n" => "$x70!2345=\n6=7E\n"],
 
    # Not allowed to break =XX escapes using soft line break
    ["$x70===xxxxx"  => "$x70=7E=\n=7E=7Exxxxx=\n"],
@@ -202,19 +202,19 @@ for (@tests) {
     }
     my $x = encode_qp($plain);
     if ($x ne $encoded) {
-	print "Encode test failed\n";
-	print "Got:      '$x'\n";
-	print "Expected: '$encoded'\n";
-	print "not ok $testno\n";
-	next;
+        print "Encode test failed\n";
+        print "Got:      '$x'\n";
+        print "Expected: '$encoded'\n";
+        print "not ok $testno\n";
+        next;
     }
     $x = decode_qp($encoded);
     if ($x ne $plain) {
-	print "Decode test failed\n";
-	print "Got:      '$x'\n";
-	print "Expected: '$plain'\n";
-	print "not ok $testno\n";
-	next;
+        print "Decode test failed\n";
+        print "Got:      '$x'\n";
+        print "Expected: '$plain'\n";
+        print "not ok $testno\n";
+        next;
     }
     print "ok $testno\n";
 }
