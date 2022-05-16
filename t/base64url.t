@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test qw(plan ok);
+use Test::More;
 
 use MIME::Base64 qw(encode_base64url decode_base64url);
 
@@ -18,8 +18,8 @@ plan tests => 2 * @tests;
 for (@tests) {
     my($name, $input, $output) = @$_;
     print "# $name\n";
-    ok(decode_base64url($input), $output);
-    ok(encode_base64url($output), $input);
+    is(decode_base64url($input), $output);
+    is(encode_base64url($output), $input);
 }
 
 __END__

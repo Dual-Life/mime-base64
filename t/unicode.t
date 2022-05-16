@@ -1,8 +1,7 @@
 use strict;
 use warnings;
 
-use Test;
-plan tests => 11;
+use Test::More tests => 11;
 
 require MIME::Base64;
 require MIME::QuotedPrint;
