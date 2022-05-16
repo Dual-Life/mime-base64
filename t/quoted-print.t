@@ -1,13 +1,6 @@
 use strict;
 use warnings;
 
-BEGIN {
-        if ($ENV{PERL_CORE}) {
-                chdir 't' if -d 't';
-                @INC = '../lib';
-        }
-}
-
 use MIME::QuotedPrint;
 
 my $x70 = "x" x 70;
