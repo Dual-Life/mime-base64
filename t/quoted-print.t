@@ -1,6 +1,13 @@
 use strict;
 use warnings;
 
+BEGIN {
+        if ($ENV{PERL_CORE}) {
+                chdir 't' if -d 't';
+                @INC = '../lib';
+        }
+}
+
 # Use our own is() function to not have any dependencies on other modules;
 # this one is simplified from the one in core perl t/test.pl
 my $testno = 0;
@@ -24,10 +31,10 @@ sub is ($$@) {
     print "\n";
     if (! $pass) {
         my @caller = caller(0);
-	print STDERR "# Failed test $testno";
+        print STDERR "# Failed test $testno";
         print STDERR " - ", @mess if @mess;
         print STDERR " at $caller[1] line $caller[2]\n";
-	print STDERR "#      got $got\n# expected $expected\n";
+        print STDERR "#      got $got\n# expected $expected\n";
     }
 
     return $pass;
@@ -232,4 +239,3 @@ else {
                  : 1;
     is($result, 1);
 }
-

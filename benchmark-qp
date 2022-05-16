@@ -33,7 +33,7 @@ for (1 .. $rounds) {
     open(FILE, $file) || die;
     open(TMP, ">$tmp") || die;
     while (<FILE>) {
-	print TMP enc($_);
+        print TMP enc($_);
     }
     close(TMP) || die;
     close(FILE);
@@ -46,7 +46,7 @@ $before = time;
 for (1 .. $rounds) {
     open(TMP, $tmp) || die;
     while (<TMP>) {
-	my $x = dec($_);
+        my $x = dec($_);
     }
 }
 
