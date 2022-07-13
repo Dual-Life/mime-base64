@@ -233,9 +233,11 @@ print "not " unless decode_qp("foo  \n\nfoo =\n\nfoo=20\n\n") eq
                                 "foo\n\nfoo \nfoo \n\n";
 $testno++; print "ok $testno\n";
 
-# Same test but with "\r\n" terminated lines
+# Same test but with "\r\n" terminated lines.  NOTE: If no encoded eol is found,
+# take the one supplied by the user!  Electronic signatures are destroyed, if we
+# enforce some "standard" eol.
 print "not " unless decode_qp("foo  \r\n\r\nfoo =\r\n\r\nfoo=20\r\n\r\n") eq
-                                "foo\n\nfoo \nfoo \n\n";
+                                "foo\r\n\r\nfoo \r\nfoo \r\n\r\n";
 $testno++; print "ok $testno\n";
 
 # Trailing whitespace
@@ -248,7 +250,7 @@ $testno++; print "ok $testno\n";
 print "not " unless decode_qp("foo = \t\x20\nbar\t\x20\n") eq "foo bar\n";
 $testno++; print "ok $testno\n";
 
-print "not " unless decode_qp("foo = \t\x20\r\nbar\t\x20\r\n") eq "foo bar\n";
+print "not " unless decode_qp("foo = \t\x20\r\nbar\t\x20\r\n") eq "foo bar\r\n";
 $testno++; print "ok $testno\n";
 
 print "not " unless decode_qp("foo = \t\x20\n") eq "foo ";
@@ -257,7 +259,7 @@ $testno++; print "ok $testno\n";
 print "not " unless decode_qp("foo = \t\x20\r\n") eq "foo ";
 $testno++; print "ok $testno\n";
 
-print "not " unless decode_qp("foo = \t\x20y\r\n") eq "foo = \t\x20y\n";
+print "not " unless decode_qp("foo = \t\x20y\r\n") eq "foo = \t\x20y\r\n";
 $testno++; print "ok $testno\n";
 
 print "not " unless decode_qp("foo =xy\n") eq "foo =xy\n";
@@ -359,4 +361,3 @@ print "not " if $] >= 5.006 && (eval 'encode_qp("XXX \x{100}")' || !$@);
 $testno++; print "ok $testno\n";
 
 }
-

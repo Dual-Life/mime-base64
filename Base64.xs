@@ -68,7 +68,7 @@ static const unsigned char index_64[256] = {
            ? ((lp = SvCUR(sv)), SvPVX(sv)) : my_sv_2pvbyte(aTHX_ sv, &lp))
        static char *
        my_sv_2pvbyte(pTHX_ register SV *sv, STRLEN *lp)
-       {   
+       {
            sv_utf8_downgrade(sv,0);
            return SvPV(sv,*lp);
        }
@@ -128,7 +128,7 @@ encode_base64(sv,...)
 
 	/* allocate a result buffer */
 	RETVAL = newSV(rlen ? rlen : 1);
-	SvPOK_on(RETVAL);	
+	SvPOK_on(RETVAL);
 	SvCUR_set(RETVAL, rlen);
 	r = SvPVX(RETVAL);
 
@@ -210,7 +210,7 @@ decode_base64(sv)
 		    break;
 		}
             } while (i < 4);
-	
+
 	    if (c[0] == EQ || c[1] == EQ) {
 		break;
             }
@@ -439,6 +439,8 @@ decode_qp(sv)
 	char const* end = str + len;
 	char *r;
 	char *whitespace = 0;
+	/* True, if we indeed did encounter an encoded LF at and of line: */
+	int rfc_nl = 0;
 
         CODE:
 	RETVAL = newSV(len ? len : 1);
@@ -451,13 +453,33 @@ decode_qp(sv)
 		str++;
 	    }
 	    else if (*str == '\r' && (str + 1) < end && str[1] == '\n') {
-		str++;
+		whitespace = 0;
+		if( rfc_nl ) {
+		    /* We've already found an encoded LF.  Hence, we skip the
+		     * original LF found in the document. */
+		    rfc_nl = 0;
+		    str += 2;
+		}
+		else {
+		    /* Otherwise, add the original LF found in the document: */
+		    *r++ = *str++;
+		    *r++ = *str++;
+		}
 	    }
 	    else if (*str == '\n') {
 		whitespace = 0;
-		*r++ = *str++;
+		if( rfc_nl ) {
+		    /* We've already found encoded LF(s) */
+		    str++;
+		    rfc_nl = 0;
+		}
+		else {
+		    /* NOTE: Not canonical LF in MIME-messages! */
+		    *r++ = *str++;
+		}
 	    }
 	    else {
+		rfc_nl = 0;
 		if (whitespace) {
 		    while (whitespace < str) {
 			*r++ = *whitespace++;
@@ -472,6 +494,10 @@ decode_qp(sv)
 		        buf[1] = *str++;
 	                buf[2] = '\0';
 		        *r++ = (char)strtol(buf, 0, 16);
+			if( '0' == buf[0] && ('A' == buf[1] || 'D' == buf[1]) ) {
+			    /* Encoded LF at hand. */
+			    rfc_nl = 1;
+			}
 	            }
 		    else {
 		        /* look for soft line break */
