@@ -18,9 +18,11 @@ BEGIN {
  if (ord('A') == 0x41) {
   *ASCII = sub { return $_[0] };
  }
- else {
+ else { # Translating to ASCII has the effect of showing that this test file
+        # verifies that arbitrary binary input acts the same on both
+        # platforms.
   require Encode;
-  *ASCII = sub { Encode::encode('ascii',$_[0]) };
+  *ASCII = sub { return Encode::encode('ascii',$_[0]); };
  }
 }
 
