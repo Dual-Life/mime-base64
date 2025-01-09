@@ -26,8 +26,8 @@ MIME::QuotedPrint - Encoding and decoding of quoted-printable strings
 
  use MIME::QuotedPrint;
 
- $encoded = encode_qp($decoded);
- $decoded = decode_qp($encoded);
+ my $encoded = encode_qp($decoded_string);
+ my $decoded = decode_qp($encoded);
 
 =head1 DESCRIPTION
 
@@ -85,8 +85,8 @@ If you prefer not to import these routines into your namespace, you can
 call them as:
 
   use MIME::QuotedPrint ();
-  $encoded = MIME::QuotedPrint::encode($decoded);
-  $decoded = MIME::QuotedPrint::decode($encoded);
+  my $encoded = MIME::QuotedPrint::encode($decoded_string);
+  my $decoded = MIME::QuotedPrint::decode($encoded);
 
 Perl v5.8 and better allow extended Unicode characters in strings.
 Such strings cannot be encoded directly, as the quoted-printable
@@ -97,7 +97,7 @@ example:
     use MIME::QuotedPrint qw(encode_qp);
     use Encode qw(encode);
 
-    $encoded = encode_qp(encode("UTF-8", "\x{FFFF}\n"));
+    my $encoded = encode_qp(encode("UTF-8", "\x{FFFF}\n"));
     print $encoded;
 
 =head1 COPYRIGHT
