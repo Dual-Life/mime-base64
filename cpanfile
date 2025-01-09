@@ -12,7 +12,6 @@ on 'configure' => sub {
 on 'test' => sub {
     requires 'strict';
     requires 'warnings';
-    requires 'Test';
     requires 'Test::More';
 };
 
