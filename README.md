@@ -7,8 +7,8 @@ MIME::Base64 - Encoding and decoding of base64 strings
 ```perl
 use MIME::Base64;
 
-$encoded = encode_base64('Aladdin:open sesame');
-$decoded = decode_base64($encoded);
+my $encoded = encode_base64('Aladdin:open sesame');
+my $decoded = decode_base64($encoded);
 ```
 
 # DESCRIPTION
@@ -53,8 +53,8 @@ call them as:
 
 ```perl
 use MIME::Base64 ();
-$encoded = MIME::Base64::encode($decoded);
-$decoded = MIME::Base64::decode($encoded);
+my $encoded = MIME::Base64::encode($decoded_string);
+my $decoded = MIME::Base64::decode($encoded);
 ```
 
 Additional functions not exported by default:
@@ -90,8 +90,8 @@ bytes of data fills one complete base64 line (76 == 57\*4/3):
 ```perl
 use MIME::Base64 qw(encode_base64);
 
-open(FILE, "/var/log/wtmp") or die "$!";
-while (read(FILE, $buf, 60*57)) {
+open(my $file, '<', '/var/log/wtmp') or die "$!";
+while (read($file, my $buf, 60*57)) {
     print encode_base64($buf);
 }
 ```
@@ -127,7 +127,7 @@ example:
 use MIME::Base64 qw(encode_base64);
 use Encode qw(encode);
 
-$encoded = encode_base64(encode("UTF-8", "\x{FFFF}\n"));
+my $encoded = encode_base64(encode("UTF-8", "\x{FFFF}\n"));
 print $encoded;
 ```
 

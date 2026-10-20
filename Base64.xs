@@ -183,8 +183,22 @@ decode_base64(sv)
 
     CODE:
     {
-        /* always enough, but might be too much */
-        STRLEN rlen = len * 3 / 4;
+        /*
+            CVE-2026-93707 Buffer Underallocation issue:
+
+            STRLEN rlen = len * 3 / 4;
+
+            The above calculation could overflow if the input is
+            larger than SIZE_MAX / 3; on 32-bit systems (about 1.3 GiB).
+            On such an overflow, the buffer would be under-allocated
+            leading to a heap overflow.
+
+            Changing it to the below calculation should resolve that by
+            properly erroring on such problematic lengths.
+
+            Thank you to Leon Timmermans.
+        */
+        STRLEN rlen = len / 4 * 3 + len % 4 * 3 / 4;
         RETVAL = newSV(rlen ? rlen : 1);
     }
         SvPOK_on(RETVAL);
