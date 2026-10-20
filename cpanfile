@@ -19,6 +19,7 @@ on 'develop' => sub {
     requires 'Dist::Zilla';
     requires 'Dist::Zilla::PluginBundle::Starter' => 'v4.0.0';
     requires 'Dist::Zilla::Plugin::MinimumPerl';
+    requires 'Dist::Zilla::Plugin::OnlyCorePrereqs';
     requires 'Pod::Coverage::TrustPod';
     requires 'Test::CheckManifest' => '1.29';
     requires 'Test::CPAN::Changes' => '0.4';

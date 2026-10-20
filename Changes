@@ -1,6 +1,10 @@
 Change history for MIME-Base64
 
 {{$NEXT}}
+  - CVE-2026-93707: Correct the buffer underallocation issue. Thans leont!
+  - Address some issues with github workflows
+  - Use Dist::Zilla::Plugin::OnlyCorePrereqs to ensure we only have core deps.
+  - Bump Perl requisite to 5.6.2 so we can assume Test::More
 
 3.16      2020-09-26
   - Convert the build to Dist::Zilla to ensure we're releasing well built
